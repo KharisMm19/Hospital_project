@@ -24,19 +24,21 @@ public class PatientRec extends javax.swing.JFrame {
      */
     public PatientRec() {
         initComponents();
+        con = DBHelper.ConnectDB();
         Get_Data();
     }
 
-    private void Get_Data(){
-           String sql="select PatientID as 'Patient ID', PatientName as 'Patient Name',FatherName as 'Father Name',Address,ContactNo as 'Contact No',Email as 'Email ID',Age,Gen as 'Gender',BG as 'Blood Group',Remarks from Patientregistration";
-           try{
-                pst=con.prepareStatement(sql);
-                rs= pst.executeQuery();
-                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-            }catch(Exception e){
+    private void Get_Data() {
+        String sql = "select PatientID as 'Patient ID', PatientName as 'Patient Name',FatherName as 'Father Name',Address,ContactNo as 'Contact No',Email as 'Email ID',Age,Gen as 'Gender',BG as 'Blood Group',Remarks from Patientregistration";
+        try {
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
-          }
+        }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,11 +75,13 @@ public class PatientRec extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -123,7 +127,7 @@ public class PatientRec extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex);
-        }        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
