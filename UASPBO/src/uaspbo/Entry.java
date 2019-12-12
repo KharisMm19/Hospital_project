@@ -5,17 +5,41 @@
  */
 package uaspbo;
 
+import java.awt.HeadlessException;
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ASUS
  */
 public class Entry extends javax.swing.JFrame {
 
+    Connection con = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
+
     /**
      * Creates new form Entry
      */
     public Entry() {
         initComponents();
+    }
+
+    private void reset() {
+        txtId.setText("");
+        txtName.setText("");
+        txtFname.setText("");
+        txtC.setText("");
+        txtAd.setText("");
+        txtQ.setText("");
+        txtE.setText("");
+        txtD.setText("");
+        cmbB.setSelectedIndex(-1);
+        cmbG.setSelectedIndex(-1);
+        btnSave.setEnabled(true);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
     }
 
     /**
@@ -79,6 +103,12 @@ public class Entry extends javax.swing.JFrame {
         jLabel10.setText("Blood Group");
 
         jLabel11.setText("Date Of Joining");
+
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
 
         txtD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,99 +310,98 @@ public class Entry extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        try{
-            con=Connect.ConnectDB();
+        try {
+            con = DBHelper.ConnectDB();
             if (txtId.getText().equals("")) {
-                JOptionPane.showMessageDialog( this, "Please enter doctor id","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter doctor id", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
 
             }
             if (txtName.getText().equals("")) {
-                JOptionPane.showMessageDialog( this, "Please enter doctor name","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter doctor name", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
 
             }
             if (txtFname.getText().equals("")) {
-                JOptionPane.showMessageDialog( this, "Please enter Father's name","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter Father's name", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (txtAd.getText().equals("")) {
-                JOptionPane.showMessageDialog( this, "Please enter address","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter address", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (txtC.getText().equals("")) {
-                JOptionPane.showMessageDialog( this, "Please enter contact no.","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter contact no.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (txtQ.getText().equals("")) {
-                JOptionPane.showMessageDialog( this, "Please enter qualifications","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter qualifications", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (cmbG.getSelectedItem().equals("")) {
-                JOptionPane.showMessageDialog( this, "Please select gender","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please select gender", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (cmbB.getSelectedItem().equals("")) {
-                JOptionPane.showMessageDialog( this, "Please select blood group","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please select blood group", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (txtD.getText().equals("")) {
-                JOptionPane.showMessageDialog( this, "Please enter joining date","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter joining date", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             Statement stmt;
-            stmt= con.createStatement();
-            String sql1="Select DoctorID from Doctor where DoctorID= '" + txtId.getText() + "'";
-            rs=stmt.executeQuery(sql1);
-            if(rs.next()){
-                JOptionPane.showMessageDialog( this, "Doctor ID already exists","Error", JOptionPane.ERROR_MESSAGE);
+            stmt = con.createStatement();
+            String sql1 = "Select DoctorID from Doctor where DoctorID= '" + txtId.getText() + "'";
+            rs = stmt.executeQuery(sql1);
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(this, "Doctor ID already exists", "Error", JOptionPane.ERROR_MESSAGE);
                 txtId.setText("");
 
                 return;
             }
-            String sql= "insert into Doctor(DoctorID,Doctorname,FatherName,Email,ContacNo,Qualifications,Gender,BloodGroup,DateOfJoining,Address)values('"+ txtId.getText() + "','"+ txtName.getText() + "','"+ txtFname.getText() + "','"+ txtE.getText() + "','"+ txtC.getText() + "','"+ txtQ.getText() + "','"+  cmbG.getSelectedItem() + "','"+ cmbB.getSelectedItem() + "','" + txtD.getText() + "','" + txtAd.getText() + "')";
+            String sql = "insert into Doctor(DoctorID,Doctorname,FatherName,Email,ContacNo,Qualifications,Gender,BloodGroup,DateOfJoining,Address)values('" + txtId.getText() + "','" + txtName.getText() + "','" + txtFname.getText() + "','" + txtE.getText() + "','" + txtC.getText() + "','" + txtQ.getText() + "','" + cmbG.getSelectedItem() + "','" + cmbB.getSelectedItem() + "','" + txtD.getText() + "','" + txtAd.getText() + "')";
 
-            pst=con.prepareStatement(sql);
+            pst = con.prepareStatement(sql);
             pst.execute();
-            JOptionPane.showMessageDialog(this,"Successfully saved","Doctor Record",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Successfully saved", "Doctor Record", JOptionPane.INFORMATION_MESSAGE);
             btnSave.setEnabled(false);
 
-        }catch(HeadlessException | SQLException ex){
-            JOptionPane.showMessageDialog(this,ex);
+        } catch (HeadlessException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        try{
-            con=Connect.ConnectDB();
-            String sql= "update Doctor set Doctorname='" + txtName.getText() + "',FatherName='" + txtFname.getText() + "',Email='" + txtE.getText() + "',ContacNo='"+ txtC.getText() + "',Qualifications='"+ txtQ.getText() +  "',Gender='" + cmbG.getSelectedItem() + "',BloodGroup='"+ cmbB.getSelectedItem() + "',DateOfJoining='" + txtD.getText() + "',Address='" + txtAd.getText() + "' where DoctorID='" + txtId.getText() + "'";
-            pst=con.prepareStatement(sql);
+        try {
+            con = DBHelper.ConnectDB();
+            String sql = "update Doctor set Doctorname='" + txtName.getText() + "',FatherName='" + txtFname.getText() + "',Email='" + txtE.getText() + "',ContacNo='" + txtC.getText() + "',Qualifications='" + txtQ.getText() + "',Gender='" + cmbG.getSelectedItem() + "',BloodGroup='" + cmbB.getSelectedItem() + "',DateOfJoining='" + txtD.getText() + "',Address='" + txtAd.getText() + "' where DoctorID='" + txtId.getText() + "'";
+            pst = con.prepareStatement(sql);
             pst.execute();
-            JOptionPane.showMessageDialog(this,"Successfully updated");
+            JOptionPane.showMessageDialog(this, "Successfully updated");
             btnUpdate.setEnabled(false);
-        }catch(HeadlessException | SQLException ex){
-            JOptionPane.showMessageDialog(this,ex);
+        } catch (HeadlessException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        try{
-            int P = JOptionPane.showConfirmDialog(null," Are you sure want to delete ?","Confirmation",JOptionPane.YES_NO_OPTION);
-            if (P==0)
-            {
-                con=Connect.ConnectDB();
-                String sql= "delete from Doctor where DoctorID = '" + txtId.getText() + "'";
-                pst=con.prepareStatement(sql);
+        try {
+            int P = JOptionPane.showConfirmDialog(null, " Are you sure want to delete ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (P == 0) {
+                con = DBHelper.ConnectDB();
+                String sql = "delete from Doctor where DoctorID = '" + txtId.getText() + "'";
+                pst = con.prepareStatement(sql);
                 pst.execute();
-                JOptionPane.showMessageDialog(this,"Successfully deleted","Record",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Successfully deleted", "Record", JOptionPane.INFORMATION_MESSAGE);
 
                 reset();
             }
-        }catch(HeadlessException | SQLException ex){
-            JOptionPane.showMessageDialog(this,ex);
+        } catch (HeadlessException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex);
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -383,9 +412,13 @@ public class Entry extends javax.swing.JFrame {
 
     private void btnGetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetActionPerformed
         this.hide();
-        DocRec frm=new DocRec();
+        DocRec frm = new DocRec();
         frm.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_btnGetActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
 
     /**
      * @param args the command line arguments
