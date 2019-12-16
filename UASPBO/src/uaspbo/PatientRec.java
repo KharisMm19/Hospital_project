@@ -11,7 +11,7 @@ import net.proteanit.sql.DbUtils;
 
 /**
  *
- * @author ASUS
+ * @author VENTI
  */
 public class PatientRec extends javax.swing.JFrame {
 
