@@ -29,7 +29,7 @@ public class DocRec extends javax.swing.JFrame {
     }
     
     private void Get_Data(){
-      String sql="select DoctorID as 'Doctor ID', DoctorName as 'Doctor Name',FatherName as 'Father Name',Address,ContacNo as 'Contact No',Email as 'Email ID',Qualifications,Gender,BloodGroup as 'Blood Group',DateOfJoining as 'Joining Date' from Doctor order by DoctorName";        
+      String sql="select DoctorID as 'Doctor ID', DoctorName as 'Doctor Name',Address,ContacNo as 'Contact No',Email as 'Email ID',Qualifications,Gender,BloodGroup as 'Blood Group',DateOfJoining as 'Joining Date' from Doctor order by DoctorName";        
       try{
          pst=con.prepareStatement(sql);
           rs= pst.executeQuery();
@@ -102,8 +102,6 @@ public class DocRec extends javax.swing.JFrame {
                 frm.txtId.setText(add1);
                 String add2 = rs.getString("Doctorname");
                 frm.txtName.setText(add2);
-                String add3 = rs.getString("Fathername");
-                frm.txtFname.setText(add3);
                 String add5 = rs.getString("Email");
                 frm.txtE.setText(add5);
                 String add6 = rs.getString("Qualifications");

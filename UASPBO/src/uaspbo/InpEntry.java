@@ -9,7 +9,7 @@ package uaspbo;
  *
  * @author VENTI
  */
-public class InpEntry extends Entry implements Inputan{
+public class InpEntry extends Entry implements InputanEntry{
 
     @Override
     public String inptId() {
@@ -24,14 +24,8 @@ public class InpEntry extends Entry implements Inputan{
     }
 
     @Override
-    public String inptFname() {
-        String teksFname = txtFname.getText();
-        return teksFname;
-    }
-
-    @Override
     public String inptC() {
-        String teksC = txtC.getName();
+        String teksC = txtAd.getName();
         return teksC;
     }
 
@@ -58,5 +52,18 @@ public class InpEntry extends Entry implements Inputan{
         String teksD = txtD.getName();
         return teksD;
     }
+
+    @Override
+    public String inptCmbG() {
+       return (String) cmbG.getSelectedItem();
+    }
+
+    @Override
+    public String inptCmbB() {
+        return (String) cmbB.getSelectedItem();
+    }
+    
+    
+    
     
 }

@@ -29,7 +29,7 @@ public class PatientRec extends javax.swing.JFrame {
     }
 
     private void Get_Data() {
-        String sql = "select PatientID as 'Patient ID', PatientName as 'Patient Name',FatherName as 'Father Name',Address,ContactNo as 'Contact No',Email as 'Email ID',Age,Gen as 'Gender',BG as 'Blood Group',Remarks from Patientregistration";
+        String sql = "select PatientID as 'Patient ID', PatientName as 'Patient Name',Address,ContactNo as 'Contact No',Email as 'Email ID',Age,Gen as 'Gender',BG as 'Blood Group',Remarks from Patientregistration";
         try {
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -103,8 +103,6 @@ public class PatientRec extends javax.swing.JFrame {
                 frm.txtId.setText(add1);
                 String add2 = rs.getString("Patientname");
                 frm.txtName.setText(add2);
-                String add3 = rs.getString("Fathername");
-                frm.txtFname.setText(add3);
                 String add5 = rs.getString("Email");
                 frm.txtEmail.setText(add5);
                 int add6 = rs.getInt("Age");

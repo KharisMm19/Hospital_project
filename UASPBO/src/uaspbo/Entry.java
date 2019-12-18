@@ -24,12 +24,13 @@ public class Entry extends javax.swing.JFrame {
      */
     public Entry() {
         initComponents();
+        cmbB.setSelectedIndex(-1);
+        cmbG.setSelectedIndex(-1);
     }
 
     private void reset() {
         txtId.setText("");
         txtName.setText("");
-        txtFname.setText("");
         txtC.setText("");
         txtAd.setText("");
         txtQ.setText("");
@@ -54,7 +55,6 @@ public class Entry extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -64,7 +64,6 @@ public class Entry extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
-        txtFname = new javax.swing.JTextField();
         txtE = new javax.swing.JTextField();
         txtC = new javax.swing.JTextField();
         txtAd = new javax.swing.JTextField();
@@ -88,8 +87,6 @@ public class Entry extends javax.swing.JFrame {
         jLabel1.setText("Doctor ID");
 
         jLabel2.setText("Full Name");
-
-        jLabel3.setText("Father's Name");
 
         jLabel4.setText("Email-id");
 
@@ -147,18 +144,16 @@ public class Entry extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7))
-                                .addGap(27, 27, 27)
+                                .addGap(34, 34, 34)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtQ, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                                     .addComponent(txtAd)
                                     .addComponent(txtC)
                                     .addComponent(txtE)
-                                    .addComponent(txtFname)
                                     .addComponent(txtName)
                                     .addComponent(txtId)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -185,10 +180,6 @@ public class Entry extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtFname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -221,7 +212,7 @@ public class Entry extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(txtD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -328,7 +319,7 @@ public class Entry extends javax.swing.JFrame {
         try {
             InpEntry inp1 = new InpEntry();
             con = DBHelper.ConnectDB();
-            if (inp1.inpt().equals("")) {
+            if (txtId.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Please enter doctor id", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
 
@@ -336,18 +327,18 @@ public class Entry extends javax.swing.JFrame {
             if (txtName.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Please enter doctor name", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
-
             }
-            if (txtFname.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Please enter Father's name", "Error", JOptionPane.ERROR_MESSAGE);
+            if (txtE.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Please enter Email", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (txtC.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Please enter contact no.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (txtAd.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Please enter address", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (txtC.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Please enter contact no.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -379,7 +370,16 @@ public class Entry extends javax.swing.JFrame {
 
                 return;
             }
-            String sql = "insert into Doctor(DoctorID,Doctorname,FatherName,Email,ContacNo,Qualifications,Gender,BloodGroup,DateOfJoining,Address)values('" + txtId.getText() + "','" + txtName.getText() + "','" + txtFname.getText() + "','" + txtE.getText() + "','" + txtC.getText() + "','" + txtQ.getText() + "','" + cmbG.getSelectedItem() + "','" + cmbB.getSelectedItem() + "','" + txtD.getText() + "','" + txtAd.getText() + "')";
+            String sql = "insert into doctor(DoctorID,Doctorname,Email,ContacNo,Qualifications,Gender,BloodGroup,DateOfJoining,Address)values('" 
+                    + txtId.getText() + "','" 
+                    + txtName.getText() + "','" 
+                    + txtE.getText() + "','" 
+                    + txtC.getText() + "','" 
+                    + txtQ.getText() + "','" 
+                    + cmbG.getSelectedItem() + "','" 
+                    + cmbB.getSelectedItem() + "','" 
+                    + txtD.getText() + "','"
+                    + txtAd.getText() + "')";
 
             pst = con.prepareStatement(sql);
             pst.execute();
@@ -394,7 +394,7 @@ public class Entry extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         try {
             con = DBHelper.ConnectDB();
-            String sql = "update Doctor set Doctorname='" + txtName.getText() + "',FatherName='" + txtFname.getText() + "',Email='" + txtE.getText() + "',ContacNo='" + txtC.getText() + "',Qualifications='" + txtQ.getText() + "',Gender='" + cmbG.getSelectedItem() + "',BloodGroup='" + cmbB.getSelectedItem() + "',DateOfJoining='" + txtD.getText() + "',Address='" + txtAd.getText() + "' where DoctorID='" + txtId.getText() + "'";
+            String sql = "update Doctor set Doctorname='" + txtName.getText() + "',Email='" + txtE.getText() + "',ContacNo='" + txtC.getText() + "',Qualifications='" + txtQ.getText() + "',Gender='" + cmbG.getSelectedItem() + "',BloodGroup='" + cmbB.getSelectedItem() + "',DateOfJoining='" + txtD.getText() + "',Address='" + txtAd.getText() + "' where DoctorID='" + txtId.getText() + "'";
             pst = con.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(this, "Successfully updated");
@@ -491,7 +491,6 @@ public class Entry extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -504,7 +503,6 @@ public class Entry extends javax.swing.JFrame {
     public javax.swing.JTextField txtC;
     public javax.swing.JTextField txtD;
     public javax.swing.JTextField txtE;
-    public javax.swing.JTextField txtFname;
     public javax.swing.JTextField txtId;
     public javax.swing.JTextField txtName;
     public javax.swing.JTextField txtQ;

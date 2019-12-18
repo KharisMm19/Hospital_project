@@ -9,15 +9,17 @@ package uaspbo;
  *
  * @author VENTI
  */
-public interface Inputan {
+public interface InputanEntry {
     
     String inptId();
     String inptName();
-    String inptFname();
     String inptC();
     String inptAd();
     String inptQ();
+    String inptCmbG();
+    String inptCmbB();
     String inptE();
     String inptD();
+    
     
 }
