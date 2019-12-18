@@ -62,8 +62,4 @@ public class InpEntry extends Entry implements InputanEntry{
     public String inptCmbB() {
         return (String) cmbB.getSelectedItem();
     }
-    
-    
-    
-    
 }

@@ -19,6 +19,7 @@ public class Entry extends javax.swing.JFrame {
     ResultSet rs = null;
     PreparedStatement pst = null;
 
+
     /**
      * Creates new form Entry
      */
@@ -317,7 +318,7 @@ public class Entry extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
-            InpEntry inp1 = new InpEntry();
+            
             con = DBHelper.ConnectDB();
             if (txtId.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Please enter doctor id", "Error", JOptionPane.ERROR_MESSAGE);
