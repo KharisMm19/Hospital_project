@@ -9,17 +9,14 @@ package uaspbo;
  *
  * @author VENTI
  */
-public interface InputanEntry {
+public abstract class Ac implements ICreset, ICgetData{
+
+    @Override
+    public abstract void reset();
+
+    @Override
+    public abstract void get_data();
     
-    String inptId();
-    String inptName();
-    String inptC();
-    String inptAd();
-    String inptQ();
-    String inptCmbG();
-    String inptCmbB();
-    String inptE();
-    String inptD();
     
     
 }

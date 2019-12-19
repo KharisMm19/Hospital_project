@@ -14,7 +14,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author ASUS
  */
-public class Service extends javax.swing.JFrame {
+public class Service extends javax.swing.JFrame implements ICreset, ICgetData{
 
     Connection con = null;
     ResultSet rs = null;
@@ -27,10 +27,11 @@ public class Service extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         txtServiceID.setVisible(false);
-        Get_Data1();
+        get_data();
     }
 
-    private void Get_Data1() {
+    @Override
+    public void get_data() {
         try {
             con = DBHelper.ConnectDB();
             String sql = "select PatientID as 'Patient ID', PatientName as 'Patient Name' from Patientregistration order by PatientName";
@@ -43,8 +44,9 @@ public class Service extends javax.swing.JFrame {
 
         }
     }
-    
-    private void Reset() {
+
+    @Override
+    public void reset() {
         txtPatientID.setText("");
         txtServiceCharges.setText("");
         txtPatientName.setText("");
@@ -54,6 +56,8 @@ public class Service extends javax.swing.JFrame {
         txtUpdate.setEnabled(false);
         txtDelete.setEnabled(false);
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -347,7 +351,7 @@ public class Service extends javax.swing.JFrame {
     }//GEN-LAST:event_txtServiceDateActionPerformed
 
     private void txtNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewActionPerformed
-        Reset();
+        reset();
     }//GEN-LAST:event_txtNewActionPerformed
 
     private void txtSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaveActionPerformed
@@ -391,7 +395,7 @@ public class Service extends javax.swing.JFrame {
                 pst.execute();
                 JOptionPane.showMessageDialog(this, "Successfully deleted");
 
-                Reset();
+                reset();
             }
         } catch (HeadlessException | SQLException ex) {
             JOptionPane.showMessageDialog(this, ex);

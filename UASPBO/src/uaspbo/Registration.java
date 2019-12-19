@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author ASUS
  */
-public class Registration extends javax.swing.JFrame {
+public class Registration extends javax.swing.JFrame implements ICreset{
 
     Connection con = null;
     ResultSet rs = null;
@@ -26,7 +26,8 @@ public class Registration extends javax.swing.JFrame {
         initComponents();
     }
 
-    private void Reset() {
+    @Override
+    public void reset() {
         txtId.setText("");
         txtName.setText("");
         txtContact.setText("");
@@ -41,6 +42,7 @@ public class Registration extends javax.swing.JFrame {
         btnDelete.setEnabled(false);
         txtId.requestDefaultFocus();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -376,7 +378,7 @@ public class Registration extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        Reset();        // TODO add your handling code here:
+        reset();        // TODO add your handling code here:
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -403,7 +405,7 @@ public class Registration extends javax.swing.JFrame {
                 pst.execute();
                 JOptionPane.showMessageDialog(this, "Successfully deleted", "Record", JOptionPane.INFORMATION_MESSAGE);
 
-                Reset();
+                reset();
             }
         } catch (HeadlessException | SQLException ex) {
             JOptionPane.showMessageDialog(this, ex);

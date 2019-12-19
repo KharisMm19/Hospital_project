@@ -12,7 +12,7 @@ import java.sql.*;
 import javax.swing.*;
 import net.proteanit.sql.DbUtils;
 
-public class UserRecord extends javax.swing.JFrame {
+public class UserRecord extends javax.swing.JFrame implements ICgetData{
     
     Connection con = null;
     ResultSet rs = null;
@@ -25,9 +25,10 @@ public class UserRecord extends javax.swing.JFrame {
     public UserRecord() {
         initComponents();
         con = DBHelper.ConnectDB();
-        Get_Data();
+        get_data();
     }
-    private void Get_Data() {
+    @Override
+    public void get_data() {
         String sql = "select name as 'Name', user_name as 'User Name',password,contact_no as 'Contact No',email_id as 'Email ID' from registration";
         try {
             pst = con.prepareStatement(sql);

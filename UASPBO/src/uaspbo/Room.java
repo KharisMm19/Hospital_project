@@ -14,7 +14,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author ASUS
  */
-public class Room extends javax.swing.JFrame {
+public class Room extends javax.swing.JFrame implements ICreset, ICgetData{
 
     Connection con = null;
     ResultSet rs = null;
@@ -26,11 +26,12 @@ public class Room extends javax.swing.JFrame {
     public Room() {
         initComponents();
         con = DBHelper.ConnectDB();
-        Get_Data();
+        get_data();
         setLocationRelativeTo(null);
     }
 
-    private void Reset() {
+    @Override
+    public void reset() {
         txtRoomNo.setText("");
         txtRoomCharges.setText("");
         cmbRoomType.setSelectedIndex(-1);
@@ -38,10 +39,11 @@ public class Room extends javax.swing.JFrame {
         btnDelete.setEnabled(false);
         btnUpdate.setEnabled(false);
         txtRoomNo.requestDefaultFocus();
-        Get_Data();
+        get_data();
     }
 
-    private void Get_Data() {
+    @Override
+    public void get_data() {
         String sql = "select RoomNo as 'Room No.',RoomType as 'Room Type', RoomCharges as 'Room Charges',RoomStatus as 'Room Status' from Room";
         try {
             pst = con.prepareStatement(sql);
@@ -67,7 +69,6 @@ public class Room extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnGetData = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -118,14 +119,6 @@ public class Room extends javax.swing.JFrame {
             }
         });
 
-        btnGetData.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnGetData.setText("Get Data");
-        btnGetData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGetDataActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -134,11 +127,8 @@ public class Room extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnGetData)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -153,8 +143,6 @@ public class Room extends javax.swing.JFrame {
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGetData)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -279,11 +267,11 @@ public class Room extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                 .addContainerGap())
@@ -293,7 +281,7 @@ public class Room extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        Reset();
+        reset();
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -329,7 +317,7 @@ public class Room extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Successfully saved", "Room Record", JOptionPane.INFORMATION_MESSAGE);
             btnSave.setEnabled(false);
-            Get_Data();
+            get_data();
         } catch (HeadlessException | SQLException ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
@@ -343,7 +331,7 @@ public class Room extends javax.swing.JFrame {
             pst.execute();
             JOptionPane.showMessageDialog(this, "Successfully updated", "Room Record", JOptionPane.INFORMATION_MESSAGE);
             btnUpdate.setEnabled(false);
-            Get_Data();
+            get_data();
         } catch (HeadlessException | SQLException ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
@@ -359,16 +347,12 @@ public class Room extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(this, "Successfully deleted", "Record", JOptionPane.INFORMATION_MESSAGE);
-                Reset();
+                reset();
             }
         } catch (HeadlessException | SQLException ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnGetDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetDataActionPerformed
-        Get_Data();
-    }//GEN-LAST:event_btnGetDataActionPerformed
 
     private void txtRoomChargesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRoomChargesKeyTyped
 
@@ -446,7 +430,6 @@ public class Room extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Room_table;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnGetData;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;

@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author ASUS
  */
-public class Entry extends javax.swing.JFrame {
+public class Entry extends javax.swing.JFrame implements ICreset{
 
     Connection con = null;
     ResultSet rs = null;
@@ -29,7 +29,8 @@ public class Entry extends javax.swing.JFrame {
         cmbG.setSelectedIndex(-1);
     }
 
-    private void reset() {
+    @Override
+    public void reset() {
         txtId.setText("");
         txtName.setText("");
         txtC.setText("");
@@ -43,6 +44,9 @@ public class Entry extends javax.swing.JFrame {
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
     }
+
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.

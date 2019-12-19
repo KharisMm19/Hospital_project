@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author ASUS
  */
-public class NewUser extends javax.swing.JFrame {
+public class NewUser extends javax.swing.JFrame implements ICreset{
 
     Connection con = null;
     ResultSet rs = null;
@@ -26,7 +26,8 @@ public class NewUser extends javax.swing.JFrame {
         initComponents();
     }
 
-    private void reset() {
+    @Override
+    public void reset() {
         txtName.setText("");
         txtUsername.setText("");
         jPassword.setText("");

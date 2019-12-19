@@ -13,7 +13,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author VENTI
  */
-public class PatientRec extends javax.swing.JFrame {
+public class PatientRec extends javax.swing.JFrame implements ICgetData{
 
     Connection con = null;
     ResultSet rs = null;
@@ -25,10 +25,11 @@ public class PatientRec extends javax.swing.JFrame {
     public PatientRec() {
         initComponents();
         con = DBHelper.ConnectDB();
-        Get_Data();
+        get_data();
     }
 
-    private void Get_Data() {
+    @Override
+    public void get_data() {
         String sql = "select PatientID as 'Patient ID', PatientName as 'Patient Name',Address,ContactNo as 'Contact No',Email as 'Email ID',Age,Gen as 'Gender',BG as 'Blood Group',Remarks from Patientregistration";
         try {
             pst = con.prepareStatement(sql);

@@ -13,7 +13,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author ASUS
  */
-public class ServiceRec extends javax.swing.JFrame {
+public class ServiceRec extends javax.swing.JFrame implements ICgetData{
     
     Connection con=null;
     ResultSet rs=null;
@@ -25,10 +25,11 @@ public class ServiceRec extends javax.swing.JFrame {
     public ServiceRec() {
         initComponents();
         con= DBHelper.ConnectDB();
-        Get_Data();
+        get_data();
     }
     
-    private void Get_Data(){
+    @Override
+    public void get_data(){
        String sql="select ServiceID as 'Service ID', ServiceName as 'Service Name',ServiceDate as 'Service Date',PatientRegistration.PatientID as 'Patient ID',PatientName as 'Patient Name',ServiceCharges as 'Service Charges' from PatientRegistration,Services where Services.PatientID=PatientRegistration.PatientID order by PatientName";
        try{         
             pst=con.prepareStatement(sql);
