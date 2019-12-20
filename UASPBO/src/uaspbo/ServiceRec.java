@@ -30,7 +30,10 @@ public class ServiceRec extends javax.swing.JFrame implements ICgetData{
     
     @Override
     public void get_data(){
-       String sql="select ServiceID as 'Service ID', ServiceName as 'Service Name',ServiceDate as 'Service Date',PatientRegistration.PatientID as 'Patient ID',PatientName as 'Patient Name',ServiceCharges as 'Service Charges' from PatientRegistration,Services where Services.PatientID=PatientRegistration.PatientID order by PatientName";
+       String sql="select ServiceID as 'Service ID', ServiceName as 'Service Name',ServiceDate as 'Service Date',"
+               + "PatientRegistration.PatientID as 'Patient ID',PatientName as 'Patient Name',doctor.DoctorID as 'Doctor ID',"
+               + "DoctorName as 'Doctor Name',room.RoomNo as 'Room No',ServiceCharges as 'Service Charges' "
+               + "from PatientRegistration,Services,doctor,room where Services.PatientID=PatientRegistration.PatientID order by PatientName";
        try{         
             pst=con.prepareStatement(sql);
             rs= pst.executeQuery();

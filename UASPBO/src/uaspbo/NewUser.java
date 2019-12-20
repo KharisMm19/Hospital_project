@@ -169,7 +169,7 @@ public class NewUser extends javax.swing.JFrame implements ICreset{
             }
         });
 
-        Save.setText("Save");
+        Save.setText("Register");
         Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveActionPerformed(evt);
@@ -313,7 +313,13 @@ public class NewUser extends javax.swing.JFrame implements ICreset{
             Save.setEnabled(false);
         } catch (HeadlessException | SQLException ex) {
             JOptionPane.showMessageDialog(this, ex);
-        }   // TODO add your handling code here:
+        }
+        
+        this.hide();
+        Login m = new Login();
+        m.setVisible(true);
+        
+// TODO add your handling code here:
     }//GEN-LAST:event_SaveActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
