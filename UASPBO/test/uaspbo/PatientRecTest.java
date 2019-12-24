@@ -32,7 +32,7 @@ public class PatientRecTest extends TestCase {
     
     @Before
     public void setUp() {
-        instance = new PatientRec("")
+        PatientRec instance = new PatientRec();
     }
     
     @After

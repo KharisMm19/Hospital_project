@@ -31,7 +31,7 @@ public class NewUserTest extends TestCase{
     
     @Before
     public void setUp() {
-        NewUser instance = new NewUser("fenti", "fenti");
+        NewUser instance = new NewUser();
         System.out.format("Start testing %s \n", this.getName());
     }
     
