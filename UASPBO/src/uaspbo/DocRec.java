@@ -30,7 +30,7 @@ public class DocRec extends javax.swing.JFrame implements ICgetData{
     
     @Override
     public void get_data(){
-      String sql="select DoctorID as 'Doctor ID', DoctorName as 'Doctor Name',Address,ContacNo as 'Contact No',Email as 'Email ID',Qualifications,Gender,BloodGroup as 'Blood Group',DateOfJoining as 'Joining Date' from Doctor order by DoctorName";        
+      String sql="select DoctorID as 'Doctor ID', DoctorName as 'Doctor Name',Address,ContacNo as 'Contact No',Email as 'Email ID',Specialist as 'Specialist',Gender,BloodGroup as 'Blood Group',DateOfJoining as 'Joining Date' from Doctor order by DoctorName";        
       try{
          pst=con.prepareStatement(sql);
           rs= pst.executeQuery();
@@ -105,7 +105,7 @@ public class DocRec extends javax.swing.JFrame implements ICgetData{
                 frm.txtName.setText(add2);
                 String add5 = rs.getString("Email");
                 frm.txtE.setText(add5);
-                String add6 = rs.getString("Qualifications");
+                String add6 = rs.getString("Specialist");
                 frm.txtQ.setText(add6);
                 String add9 = rs.getString("BloodGroup");
                 frm.cmbB.setSelectedItem(add9);

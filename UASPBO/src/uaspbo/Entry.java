@@ -99,7 +99,7 @@ public class Entry extends javax.swing.JFrame implements ICreset{
 
         jLabel6.setText("Address");
 
-        jLabel7.setText("Qualifications");
+        jLabel7.setText("Specialist");
 
         jLabel9.setText("Gender");
 
@@ -110,6 +110,12 @@ public class Entry extends javax.swing.JFrame implements ICreset{
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);
+            }
+        });
+
+        txtQ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQActionPerformed(evt);
             }
         });
 
@@ -348,7 +354,7 @@ public class Entry extends javax.swing.JFrame implements ICreset{
             }
 
             if (txtQ.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Please enter qualifications", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter specialist", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -375,7 +381,7 @@ public class Entry extends javax.swing.JFrame implements ICreset{
 
                 return;
             }
-            String sql = "insert into doctor(DoctorID,Doctorname,Email,ContacNo,Qualifications,Gender,BloodGroup,DateOfJoining,Address)values('" 
+            String sql = "insert into doctor(DoctorID,Doctorname,Email,ContacNo,Specialist,Gender,BloodGroup,DateOfJoining,Address)values('" 
                     + txtId.getText() + "','" 
                     + txtName.getText() + "','" 
                     + txtE.getText() + "','" 
@@ -399,7 +405,7 @@ public class Entry extends javax.swing.JFrame implements ICreset{
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         try {
             con = DBHelper.ConnectDB();
-            String sql = "update Doctor set Doctorname='" + txtName.getText() + "',Email='" + txtE.getText() + "',ContacNo='" + txtC.getText() + "',Qualifications='" + txtQ.getText() + "',Gender='" + cmbG.getSelectedItem() + "',BloodGroup='" + cmbB.getSelectedItem() + "',DateOfJoining='" + txtD.getText() + "',Address='" + txtAd.getText() + "' where DoctorID='" + txtId.getText() + "'";
+            String sql = "update Doctor set Doctorname='" + txtName.getText() + "',Email='" + txtE.getText() + "',ContacNo='" + txtC.getText() + "',Specialist='" + txtQ.getText() + "',Gender='" + cmbG.getSelectedItem() + "',BloodGroup='" + cmbB.getSelectedItem() + "',DateOfJoining='" + txtD.getText() + "',Address='" + txtAd.getText() + "' where DoctorID='" + txtId.getText() + "'";
             pst = con.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(this, "Successfully updated");
@@ -447,6 +453,10 @@ public class Entry extends javax.swing.JFrame implements ICreset{
         Main m = new Main();
         m.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQActionPerformed
 
     /**
      * @param args the command line arguments
